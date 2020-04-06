@@ -17,7 +17,7 @@ import Search from "./views/Search";
 import "./index.css";
 
 const tagManagerArgs = {
-  gtmId: "GTM-000000",
+  gtmId: "GTM-WZ3QXHQ",
 };
 
 TagManager.initialize(tagManagerArgs);
