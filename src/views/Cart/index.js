@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import PropTypes from "prop-types";
+import _ from "lodash";
 
-import { Segment, Header } from 'semantic-ui-react';
-import { getCart, cartProductPropType } from './reducer';
-import CardProduct from './CartProduct';
-import CardSummary from './CartSummary';
-import { closeSearch } from '../../components/NavBar/actions';
-import { isSearchVisible } from '../../components/NavBar/reducer';
+import { Segment, Header } from "semantic-ui-react";
+import { getCart, cartProductPropType } from "./reducer";
+import CardProduct from "./CartProduct";
+import CardSummary from "./CartSummary";
+import { closeSearch } from "../../components/NavBar/actions";
+import { isSearchVisible } from "../../components/NavBar/reducer";
 
 class Cart extends Component {
   componentDidMount() {
@@ -19,7 +19,10 @@ class Cart extends Component {
   }
 
   getTotalPrice() {
-    const total = _.sumBy(this.props.cart, item => (Number(item.quantity) * Number(item.price)));
+    const total = _.sumBy(
+      this.props.cart,
+      (item) => Number(item.quantity) * Number(item.price)
+    );
     return Math.round(total * 100) / 100;
   }
 
@@ -27,17 +30,19 @@ class Cart extends Component {
     return _.isEmpty(this.props.cart) ? (
       <Segment textAlign="center">Your Cart is Empty</Segment>
     ) : (
-        <div>
-          <Header textAlign="center">Shopping Cart</Header>
-          {this.props.cart.map(product => (
-            <CardProduct
-              key={_.isNil(product.variationId) ? product.id : product.variationId}
-              product={product}
-            />
-          ))}
-          <CardSummary total={this.getTotalPrice()} cart={this.props.cart} />
-        </div>
-      );
+      <div>
+        <Header textAlign="center">Shopping Cart</Header>
+        {this.props.cart.map((product) => (
+          <CardProduct
+            key={
+              _.isNil(product.variationId) ? product.id : product.variationId
+            }
+            product={product}
+          />
+        ))}
+        <CardSummary total={this.getTotalPrice()} cart={this.props.cart} />
+      </div>
+    );
   }
 }
 
@@ -47,16 +52,16 @@ Cart.propTypes = {
   closeSearch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   cart: getCart(state.cart),
   searchVisible: isSearchVisible(state.navbar),
 });
 
 function mapDispatchToProps(dispatch) {
-  return Object.assign({ dispatch }, bindActionCreators({ closeSearch }, dispatch));
+  return Object.assign(
+    { dispatch },
+    bindActionCreators({ closeSearch }, dispatch)
+  );
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

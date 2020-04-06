@@ -1,7 +1,7 @@
-import { combineReducers } from 'redux';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
-import { ADD_PRODUCT, SET_QUANTITY, REMOVE_PRODUCT } from './actions';
+import { combineReducers } from "redux";
+import PropTypes from "prop-types";
+import _ from "lodash";
+import { ADD_PRODUCT, SET_QUANTITY, REMOVE_PRODUCT } from "./actions";
 
 export const cartProductPropType = PropTypes.shape({
   id: PropTypes.number.isRequired,
@@ -19,7 +19,10 @@ const items = (state = [], action) => {
     case ADD_PRODUCT: {
       let product = null;
       if (!_.isNil(action.variationId)) {
-        product = _.find(state, { id: action.id, variationId: Number(action.variationId) });
+        product = _.find(state, {
+          id: action.id,
+          variationId: Number(action.variationId),
+        });
       } else {
         product = _.find(state, { id: action.id });
       }
@@ -45,18 +48,27 @@ const items = (state = [], action) => {
         }
       }
 
-      return _.unionBy(state, [newProduct], !_.isNil(action.variationId) ? 'variationId' : 'id');
+      return _.unionBy(
+        state,
+        [newProduct],
+        !_.isNil(action.variationId) ? "variationId" : "id"
+      );
     }
     case REMOVE_PRODUCT:
       if (!_.isNil(action.variationId)) {
-        return state.filter(item => item.variationId !== Number(action.variationId));
+        return state.filter(
+          (item) => item.variationId !== Number(action.variationId)
+        );
       }
-      return state.filter(item => item.id !== action.id);
+      return state.filter((item) => item.id !== action.id);
 
     case SET_QUANTITY: {
       let product = null;
       if (!_.isNil(action.variationId)) {
-        product = _.find(state, { id: action.id, variationId: Number(action.variationId) });
+        product = _.find(state, {
+          id: action.id,
+          variationId: Number(action.variationId),
+        });
       } else {
         product = _.find(state, { id: action.id });
       }
@@ -67,10 +79,14 @@ const items = (state = [], action) => {
         });
 
         // Overwrite product with new details
-        const cartProducts = _.unionBy([newProduct], state, !_.isNil(action.variationId) ? 'variationId' : 'id');
+        const cartProducts = _.unionBy(
+          [newProduct],
+          state,
+          !_.isNil(action.variationId) ? "variationId" : "id"
+        );
 
         // Order cart products by their added date
-        return _.orderBy(cartProducts, ['dateAdded'], ['asc']);
+        return _.orderBy(cartProducts, ["dateAdded"], ["asc"]);
       }
 
       return state;
@@ -80,7 +96,7 @@ const items = (state = [], action) => {
   }
 };
 
-export const getCart = state => state.items;
+export const getCart = (state) => state.items;
 
 export default combineReducers({
   items,
