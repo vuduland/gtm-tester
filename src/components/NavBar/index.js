@@ -73,10 +73,11 @@ class NavBar extends Component {
     const { searchVisible } = this.props;
 
     return (
-      <Segment basic color="purple" inverted size="small" className="nav-bar">
+      <Segment basic color="teal" inverted size="small" className="nav-bar">
         <Menu fluid secondary>
           <Menu.Item onClick={this.showSidebar} fitted>
             <Icon
+              color="black"
               name="content"
               size="large"
               onClick={this.showSidebar}

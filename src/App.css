@@ -645,7 +645,6 @@ body.toastr-confirm-active {
   width: 90%;
   height: 50px;
   text-align: center;
-  overflow: hidden;
   font-size: 1.2em;
   text-overflow: ellipsis;
   overflow: hidden;
