@@ -2,7 +2,6 @@ import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { HashRouter, Route, Switch } from "react-router-dom";
-import TagManager from "react-gtm-module";
 import store from "./configureStore";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
@@ -15,12 +14,6 @@ import Cart from "./views/Cart";
 import Search from "./views/Search";
 
 import "./index.css";
-
-const tagManagerArgs = {
-  gtmId: "GTM-WZ3QXHQ",
-};
-
-TagManager.initialize(tagManagerArgs);
 
 render(
   <Provider store={store}>
