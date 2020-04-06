@@ -24,7 +24,7 @@ class ProductCard extends Component {
               </Card.Header>
               <Card.Meta>{categories.join(", ")}</Card.Meta>
               {this.props.price ? (
-                <Header as="h3" color="purple">
+                <Header as="h3" color="blue">
                   <div
                     dangerouslySetInnerHTML={{
                       __html: config.CURRENCY + this.props.price,
@@ -37,7 +37,7 @@ class ProductCard extends Component {
         </Card.Content>
         <Card.Content extra>
           <Link to={"/product/" + this.props.id}>
-            <Button color="purple" compact>
+            <Button color="orange" compact>
               Shop Now &gt;
             </Button>
           </Link>

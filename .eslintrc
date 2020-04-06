@@ -9,6 +9,7 @@
     "linebreak-style": ["error", "unix"],
     "semi": ["error", "always"],
     "arrow-body-style": [2, "as-needed"],
+    "max-len": "off",
     "import/extensions": 0,
     "react/jsx-filename-extension": [
       1,
@@ -37,6 +38,7 @@
     "jsx-a11y/no-static-element-interactions": 0,
     "jsx-a11y/anchor-is-valid": 0,
     "prefer-template": 0,
-    "no-prototype-builtins": 0
+    "no-prototype-builtins": 0,
+    "react/forbid-prop-types": 0
   }
 }

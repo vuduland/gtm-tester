@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import _ from 'lodash';
-import { toastr } from 'react-redux-toastr';
-import 'react-image-gallery/styles/css/image-gallery.css';
-import { Header, Card, Icon, Button } from 'semantic-ui-react';
-import ImageGallery from 'react-image-gallery';
-import { productPropType } from '../Products/reducer';
-import { addProduct } from '../Cart/actions';
-import Rating from '../../components/Rating';
-import Reviews from '../../components/Reviews';
-import Variations from '../../components/Variations';
-import SocialBox from './SocialBox';
-import config from '../../config/config';
+/* eslint-disable prefer-destructuring */
+import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import _ from "lodash";
+import { toastr } from "react-redux-toastr";
+import "react-image-gallery/styles/css/image-gallery.css";
+import { Header, Card, Icon, Button } from "semantic-ui-react";
+import ImageGallery from "react-image-gallery";
+import { productPropType } from "../Products/reducer";
+import { addProduct } from "../Cart/actions";
+import Rating from "../../components/Rating";
+import Reviews from "../../components/Reviews";
+import Variations from "../../components/Variations";
+import SocialBox from "./SocialBox";
+import config from "../../config/config";
 
-import './styles.css';
+import "./styles.css";
 
 class ProductDetails extends Component {
   static isAnyCached(images) {
@@ -25,7 +26,7 @@ class ProductDetails extends Component {
         newImage.src = image.original;
         return newImage.complete;
       })
-      .filter(isCached => isCached === false);
+      .filter((isCached) => isCached === false);
   }
 
   constructor(props) {
@@ -41,11 +42,13 @@ class ProductDetails extends Component {
   }
 
   getCategories() {
-    return this.props.product.categories.map(category => category.name).join(', ');
+    return this.props.product.categories
+      .map((category) => category.name)
+      .join(", ");
   }
 
   getImageGallery() {
-    return this.props.product.images.map(image => ({ original: image.src }));
+    return this.props.product.images.map((image) => ({ original: image.src }));
   }
 
   /**
@@ -64,7 +67,9 @@ class ProductDetails extends Component {
   addItem() {
     if (this.props.product.variations.length !== 0) {
       if (_.isNull(this.state.selections)) {
-        toastr.warning('Please make a selection for all of the products actions');
+        toastr.warning(
+          "Please make a selection for all of the products actions"
+        );
         return;
       }
     }
@@ -79,11 +84,14 @@ class ProductDetails extends Component {
         product.price,
         product.images[0].src,
         this.state.variationId,
-        this.state.selections,
-      ),
+        this.state.selections
+      )
     );
 
-    toastr.success('Added to Cart', product.name + ' was added to your shopping cart.');
+    toastr.success(
+      "Added to Cart",
+      product.name + " was added to your shopping cart."
+    );
   }
 
   render() {
@@ -117,11 +125,18 @@ class ProductDetails extends Component {
           {this.props.product.categories.length === 0 ? null : (
             <Card.Content>{this.getCategories()}</Card.Content>
           )}
-          <Card.Content>{this.props.product.in_stock ? 'In Stock' : 'Out of Stock'}</Card.Content>
-          {this.props.product.price ?
-            (<Card.Content>
-              <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + this.props.product.price }} />
-            </Card.Content>) : null}
+          <Card.Content>
+            {this.props.product.in_stock ? "In Stock" : "Out of Stock"}
+          </Card.Content>
+          {this.props.product.price ? (
+            <Card.Content>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: config.CURRENCY + this.props.product.price,
+                }}
+              />
+            </Card.Content>
+          ) : null}
           {this.props.product.variations.length === 0 ? null : (
             <Variations
               sendSelections={this.receiveSelections}
@@ -129,9 +144,11 @@ class ProductDetails extends Component {
               variationIds={this.props.product.variations}
             />
           )}
-          {this.props.product.backorders_allowed || this.props.product.in_stock ? (
+          {this.props.product.backorders_allowed ||
+          this.props.product.in_stock ? (
             <Button color="purple" fluid onClick={this.addItem}>
-              ADD TO CART &nbsp;<Icon name="cart" />
+              ADD TO CART &nbsp;
+              <Icon name="cart" />
             </Button>
           ) : null}
         </Card>
@@ -142,7 +159,11 @@ class ProductDetails extends Component {
                 Description
               </Card.Header>
               <Card.Description>
-                <div dangerouslySetInnerHTML={{ __html: this.props.product.description }} />
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: this.props.product.description,
+                  }}
+                />
               </Card.Description>
             </Card.Content>
           </Card>
@@ -160,7 +181,10 @@ ProductDetails.propTypes = {
 };
 
 function mapDispatchToProps(dispatch) {
-  return Object.assign({ dispatch }, bindActionCreators({ addProduct }, dispatch));
+  return Object.assign(
+    { dispatch },
+    bindActionCreators({ addProduct }, dispatch)
+  );
 }
 
 export default connect(null, mapDispatchToProps)(ProductDetails);
